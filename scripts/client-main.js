@@ -30,17 +30,14 @@ const playerData = {
 };
 
 const fixedMapItems = [
-  { x: 0,
-    y: 0,
+  { x: 0, y: 0,
     item: "your home",
   },
-  { x: 100,
-    y: 100,
+  { x: 100, y: 100,
     item: "the town of Embersmaw",
   },
   {
-    x: 3,
-    y: 3,
+    x: 3, y: 3,
     item: "a hidden stash",
   },
 ];
