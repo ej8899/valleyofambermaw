@@ -13,6 +13,7 @@
 // GLOBAL VARIABLES
 //
 let currentMessage = '';
+let activeBattle = false;
 
 //
 // establish player data
@@ -46,6 +47,7 @@ const fixedMapItems = [
 //  randomize for a chance encounter of a non-static item (monster/npc/etc)
 //
 const chanceEncounter = () => {
+  // if we toggle activeBattle to true, we can disable movement and indicate this is battle (* CAUTION - no way out as of yet)
   return;
 };
 
@@ -66,22 +68,35 @@ const fixedEncounter = () => {
 
 
 
+//
+// key handler
+//
+
+
 const logKey = function(e) {
   if (`${e.code}` === "KeyW") {
-    playerData.currentY += 1;
-    currentMessage = "you moved north";
+    if (!activeBattle) {
+      playerData.currentY += 1;
+      currentMessage = "you moved north";
+    }
   }
   if (`${e.code}` === "KeyA") {
-    playerData.currentX -= 1;
-    currentMessage = "you moved west";
+    if (!activeBattle) {
+      playerData.currentX -= 1;
+      currentMessage = "you moved west";
+    }
   }
   if (`${e.code}` === "KeyS") {
-    playerData.currentY -= 1;
-    currentMessage = "you moved south";
+    if (!activeBattle) {
+      playerData.currentY -= 1;
+      currentMessage = "you moved south";
+    }
   }
   if (`${e.code}` === "KeyD") {
-    playerData.currentX += 1;
-    currentMessage = "you moved east";
+    if (!activeBattle) {
+      playerData.currentX += 1;
+      currentMessage = "you moved east";
+    }
   }
 
   // update player status bar

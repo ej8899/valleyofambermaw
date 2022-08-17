@@ -1,0 +1,26 @@
+<html>
+<head>
+</head>
+<body>
+<script>
+
+function checkServerStatus( url )
+{
+    var script = document.body.appendChild(document.createElement("script"));
+    script.onload = function()
+    {
+        alert( url + " is online");
+    }
+    script.onerror = function()
+    {
+        alert( url + " is offline");
+    };
+    script.src = url;
+
+}
+
+checkServerStatus( "http://google.com" );
+
+
+</script>
+</body>
