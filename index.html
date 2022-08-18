@@ -17,22 +17,84 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="./styles/main.css">
-
+ <!-- App CSS -->
+ <link rel="stylesheet" href="./styles/layout.css" type="text/css" />
+ <link rel="stylesheet" href="./styles/nav.css" type="text/css" />
+ <link rel="stylesheet" href="./styles/page-header.css" type="text/css" />
+ <link rel="stylesheet" href="./styles/tweets-new.css" type="text/css" />
+ <link rel="stylesheet" href="./styles/tweets-layout.css" type="text/css" />
+ <link rel="stylesheet" href="./styles/page-footer.css" type="text/css" />
+ <link rel="stylesheet" href="./styles/tooltips.css" type="text/css" />
 
 </head>
+
 <body>
-
+    
+  <!-- START: TOP NAV BAR-->
   <nav>
-  <div><B>Valley of Embersmaw</B> - a treasure hunting, monster slaying fantasy adventure!</div>
-  <div>Move:  w/a/s/d (north/west/south/east)</div>
-  <div>Player: (name) | Level: (level) | Health: (<span id="playerHealth"></span>/<span id="playerHealthMax"></span>) | Coordinates: (X:<span id="xcoord"></span>), (Y:<span id="ycoord"></span>) </div>
-  <div>Message: <span id="currentMessage"></span></div>
-  </nav>
+    <div><B>Valley of Embersmaw</B><br clear=all>a treasure hunting, monster slaying fantasy adventure!</div>
+    <div>Move:  w/a/s/d (north/west/south/east)</div>
+    <div>Player: (name) | Level: (level)</div>
+    </nav>
+  
+    
+    
+  <!-- END: TOP NAV BAR -->
 
+
+  <!-- start: MAIN section-->
+  <div class="container">
+    
+  <!-- start: top header w image and name -->
+  <header>
+    <div><br clear="all">
+        <img src="./images/people-heroes.png" width="300" id="updateImage">
+    </div>
+    <div>
+        <h2 id="updateName">The Heroes</h2>
+    </div>
+  </header>
+  <!-- end: top header -->
   
-  
+
+    <!-- START: section for showing tweets -->
+
+<!-- SAMPLE TWEET ONLY -->      
+    <section id="tweets-container">
+      <article class="tweets-layout">
+        <div class="tweets-header">
+          <div>playername</div>
+          <div>...</div>
+        </div>
+      
+      <div class="tweets-message">
+        <div><div id="currentMessage"></div></div>
+        <div><div class="tweets-message" id="logMessage"></div></div>
+      </div>
+
+      <footer class="tweets-footer">
+      <div>Health: (<span id="playerHealth"></span>/<span id="playerHealthMax"></span>)</div>
+      <div>Coordinates: (X:<span id="xcoord"></span>), (Y:<span id="ycoord"></span>) </div>
+      </footer>
+      </article>
+    </section>
+    <!-- END: section for showing tweets -->
+
+  </div>
+  <!-- END: MAIN SECTION -->
+
+  <footer class="page-footer">
+    <div class="page-footer-blocks"><small>
+      <i class="fa-solid fa-copyright"></i> 2022. All rights reserved.
+    </small></div>
+    <div class="page-footer-blocks">        
+        <a href="https://github.com/ej8899/tweeter"><i class="fa-brands fa-square-github icon tooltip"><span class="tooltiptext">click for our github profile</span></i></a>&nbsp;<i class="fa-brands fa-square-twitter icon"></i>&nbsp;<i class="fa-brands fa-linkedin icon"></i>&nbsp;<i class="fa-solid fa-envelope icon"></i>
+    </div>
+  </footer>
 
 </body>
-<!-- SCRIPTS (additional) -->
 
+
+
+<!-- SCRIPTS (additional) -->
 </html>
