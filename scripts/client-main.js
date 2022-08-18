@@ -86,6 +86,9 @@ const fixedEncounter = () => {
 
 
 const logKey = function(e) {
+  // update message LOG
+  $('#logMessage').prepend('- ' + currentMessage + '<br>');
+
   if (`${e.code}` === "KeyW") {
     if (!activeBattle) {
       playerData.currentY += 1;
@@ -130,11 +133,7 @@ const logKey = function(e) {
   $('#updateName').text(updateName);
     
   // update player message
-  $('#currentMessage').html('- <b>' + currentMessage +'</b>');
-
-  $('#logMessage').prepend('- ' + currentMessage + '<br>');
-  
-
+  $('#currentMessage').html('- <b>' + currentMessage + '</b>');
 };
 
 
