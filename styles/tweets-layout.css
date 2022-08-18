@@ -39,15 +39,22 @@ CSS for tweets-container
 }
 
 .tweets-message {
+  display:flex;
+  flex-direction: column;
   width: 95%;
-  height: 300px;
-  display: flex;
+
   padding-top: 20px;
   padding-bottom: 20px;
-  flex-direction: row;
-  justify-content:flex-start;
+  text-align: left;
   overflow: auto;
-  max-height: 100vh;
+}
+
+.message-list {
+  text-align: left;
+  width:95%;
+  height: 280px;
+  padding-top: 5px;
+  justify-content: flex-start;
 }
 
 .tweets-footer {

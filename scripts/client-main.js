@@ -133,7 +133,7 @@ const logKey = function(e) {
   $('#updateName').text(updateName);
     
   // update player message
-  $('#currentMessage').html('- <b>' + currentMessage + '</b>');
+  $('#currentMessage').html('<b>' + currentMessage + '</b>');
 };
 
 
