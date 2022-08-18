@@ -36,20 +36,24 @@ const fixedMapItems = [
   { x: 0, y: 0,
     item: "your home",
     image: "./images/people-heroes.png",
+    monster: "no",
   },
   { x: 100, y: 100,
     item: "the town of Embersmaw",
     image: "./images/people-heroes.png",
+    monster: "no",
   },
   {
     x: 3, y: 3,
     item: "a hidden stash",
     image: "./images/people-heroes.png",
+    monster: "no",
   },
   {
     x: 5, y: 5,
     item: "a darkling",
     image: "./images/monster-darkling.jpg",
+    monster: "yes",
   }
 ];
 
