@@ -1,5 +1,8 @@
 # Valley of Embersmaw
 
+monster database:
+https://www.dndbeyond.com/monsters?filter-cr-max=5&filter-cr-min=1&filter-environment=4&filter-search=&filter-type=0&page=2
+
 
 TODO:
   - random endless exploration

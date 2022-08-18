@@ -14,6 +14,8 @@
 //
 let currentMessage = '';
 let activeBattle = false;
+let updateImage = './images/people-heroes.png';
+let updateName = '.';
 
 //
 // establish player data
@@ -33,14 +35,22 @@ const playerData = {
 const fixedMapItems = [
   { x: 0, y: 0,
     item: "your home",
+    image: "./images/people-heroes.png",
   },
   { x: 100, y: 100,
     item: "the town of Embersmaw",
+    image: "./images/people-heroes.png",
   },
   {
     x: 3, y: 3,
     item: "a hidden stash",
+    image: "./images/people-heroes.png",
   },
+  {
+    x: 5, y: 5,
+    item: "a darkling",
+    image: "./images/monster-darkling.jpg",
+  }
 ];
 
 //
@@ -56,10 +66,12 @@ const chanceEncounter = () => {
 //  returns FALSE if no encounter with a fixed object
 const fixedEncounter = () => {
   // check the fixedMapItems for matches on coordinates & return true if there was a fixed object encounter
-  console.log("in fixedEncounter")
+  console.log("in fixedEncounter");
   for (let x = 0; x < fixedMapItems.length; x ++) {
     if ((fixedMapItems[x].x === playerData.currentX) && (fixedMapItems[x].y === playerData.currentY)) {
       currentMessage = `You encountered ${fixedMapItems[x].item}`;
+      updateImage = fixedMapItems[x].image;
+      updateName = fixedMapItems[x].item;
       return true;
     }
   }
@@ -105,14 +117,23 @@ const logKey = function(e) {
   $('#playerHealthMax').text(playerData.healthMax);
   $('#playerHealth').text(playerData.health);
 
-  
+
   // check for encounters along the way - note priorities here!
-  fixedEncounter();
+  if (fixedEncounter() === false) {
+    updateName = '.';
+    updateImage = './images/people-heroes.png';
+  }
   chanceEncounter();
   
+  // update image
+  $('#updateImage').attr("src", updateImage);
+  $('#updateName').text(updateName);
+    
   // update player message
-  $('#currentMessage').text(currentMessage);
+  $('#currentMessage').html('- <b>' + currentMessage +'</b>');
 
+  $('#logMessage').prepend('- ' + currentMessage + '<br>');
+  
 
 };
 
