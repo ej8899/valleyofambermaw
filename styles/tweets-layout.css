@@ -62,7 +62,7 @@ CSS for tweets-container
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
 
-.message-list {
+.messages-list {
   text-align: left;
   width:95%;
   height: 280px;
@@ -70,14 +70,15 @@ CSS for tweets-container
   justify-content: flex-start;
 }
 
-.nessages-footer {
+.messages-footer {
   display: flex;
   border-style: solid none none none;
   flex-direction: row;
-  width: 95%;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
   font-size: 0.6em;
   margin-top: 5px;
   padding-top: 5px;
+  border: 5px;
 }

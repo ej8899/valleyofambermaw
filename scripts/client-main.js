@@ -118,6 +118,7 @@ const fixedEncounter = () => {
 //
 const updateStats = (clearMessages) => {
   if (clearMessages === "clear") {
+    $('#logMessage').empty();
     currentMessage = '';
   }
 
@@ -126,7 +127,7 @@ const updateStats = (clearMessages) => {
   $('#playerLevel').text(playerData.level);
   
   // update message LOG
-  $('#logMessage').prepend('- ' + currentMessage + '<br>');
+  $('#logMessage').append('- ' + currentMessage + '<br>');
 
   // update player status bar
   $('#xcoord').text(playerData.currentX);
@@ -159,17 +160,20 @@ const movePlayer = (direction) => {
   }
 
   // move the player
-  if (direction === "north") {
-    playerData.currentY += 1;
-  }
-  if (direction === "south") {
-    playerData.currentY -= 1;
-  }
-  if (direction === "west") {
-    playerData.currentX -= 1;
-  }
-  if (direction === "east") {
-    playerData.currentX += 1;
+  if (!activeBattle) {
+    if (direction === "north") {
+      playerData.currentY += 1;
+    }
+    if (direction === "south") {
+      playerData.currentY -= 1;
+    }
+    if (direction === "west") {
+      playerData.currentX -= 1;
+    }
+    if (direction === "east") {
+      playerData.currentX += 1;
+    }
+    currentMessage = `You travelled ${direction}`;
   }
 };
 
@@ -179,7 +183,7 @@ const movePlayer = (direction) => {
 //
 const logKey = function(e) {
   // update any messages BEFORE movement
-  updateStats();
+  updateStats("clear");
 
   if (`${e.code}` === "KeyW") {
     movePlayer("north");
@@ -190,7 +194,6 @@ const logKey = function(e) {
   if (`${e.code}` === "KeyD") {
     movePlayer("east");
   }
-
   if (`${e.code}` === "KeyA") {
     movePlayer("west");
   }
