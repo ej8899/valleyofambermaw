@@ -58,6 +58,14 @@ const fixedMapItems = [
   }
 ];
 
+const monstersDatabase = {
+  darkling: {
+    name: "Darkling",
+    healthBase: 20,
+    healthNow: 20,
+    hasTreasure: true,
+  },
+};
 
 //
 //
@@ -108,7 +116,11 @@ const fixedEncounter = () => {
 //
 //
 //
-const updateStats = () => {
+const updateStats = (clearMessages) => {
+  if (clearMessages === "clear") {
+    currentMessage = '';
+  }
+
   $('#playerName').text(playerData.name);
   $('#playerGold').text(playerData.gold);
   $('#playerLevel').text(playerData.level);
@@ -132,6 +144,35 @@ const updateStats = () => {
 
 };
 
+//
+// movement handler
+//
+const movePlayer = (direction) => {
+  // trying to run from battle
+  if (activeBattle) {
+    if (randomNumber(1,20) < 10) {          // RUN THE ODDS OF FLEEING BATTLE
+      currentMessage = "running failed, try attacking (E)";
+    } else {
+      currentMessage = `you ran away to the ${direction}`;
+      activeBattle = false;
+    }
+  }
+
+  // move the player
+  if (direction === "north") {
+    playerData.currentY += 1;
+  }
+  if (direction === "south") {
+    playerData.currentY -= 1;
+  }
+  if (direction === "west") {
+    playerData.currentX -= 1;
+  }
+  if (direction === "east") {
+    playerData.currentX += 1;
+  }
+};
+
 
 //
 // key handler
@@ -140,46 +181,20 @@ const logKey = function(e) {
   // update any messages BEFORE movement
   updateStats();
 
-  
-  
   if (`${e.code}` === "KeyW") {
-    if (!activeBattle) {
-      playerData.currentY += 1;
-      currentMessage = "you moved north";
-    } else {
-      currentMessage = "running failed, try attacking (E)";
-    }
-  }
-  if (`${e.code}` === "KeyA") {
-    if (activeBattle === false) {
-      playerData.currentX -= 1;
-      currentMessage = "you moved west";
-    } else {
-      if (randomNumber(1,20) < 10) {
-        currentMessage = "running failed, try attacking (E)";
-      } else {
-        currentMessage = "you ran away to the west";
-        playerData.currentX -= 1;
-        activeBattle = false;
-      }
-    }
+    movePlayer("north");
   }
   if (`${e.code}` === "KeyS") {
-    if (!activeBattle) {
-      playerData.currentY -= 1;
-      currentMessage = "you moved south";
-    } else {
-      currentMessage = "running failed, try attacking (E)";
-    }
+    movePlayer("south");
   }
   if (`${e.code}` === "KeyD") {
-    if (!activeBattle) {
-      playerData.currentX += 1;
-      currentMessage = "you moved east";
-    } else {
-      currentMessage = "running failed, try attacking (E)";
-    }
+    movePlayer("east");
   }
+
+  if (`${e.code}` === "KeyA") {
+    movePlayer("west");
+  }
+  
   if (`${e.code}` === "KeyE") {
     if (activeBattle === false) {
       currentMessage = "you swing in vain at the empty air ahead";
@@ -189,10 +204,9 @@ const logKey = function(e) {
       updateStats();
       let goldfound = randomNumber(1,5);
       currentMessage = `You found ${goldfound} gold pieces.`;
-      updateStats();
       playerData.gold += goldfound;
       fixedMapItems[3].monster = "no";
-      fixedMapItems[3].item = "rotting darkling corpse";
+      fixedMapItems[3].item = "rotting corpse";
       activeBattle = false;
     }
   }

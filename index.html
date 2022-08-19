@@ -10,7 +10,7 @@
   <!-- SCRIPTS -->
   
   <!-- load jquery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" defer></script>
   
 
   <!-- main JS program -->
@@ -34,7 +34,7 @@
     
   <!-- START: TOP NAV BAR-->
   <nav>
-    <div><B>Valley of Embersmaw</B><br clear=all>a treasure hunting, monster slaying fantasy adventure!</div>
+    <div><img src="./images/image-title.png"></div>
     <div>Move:  w/a/s/d (north/west/south/east)</div>
     <div>Level: (level)</div>
     </nav>
@@ -59,28 +59,27 @@
   <!-- end: top header -->
   
 
-    <!-- START: section for showing tweets -->
 
-<!-- SAMPLE TWEET ONLY -->      
-    <section id="tweets-container">
-      <article class="tweets-layout">
-        <div class="tweets-header">
+<!-- START GAME MESSAGES ONLY -->      
+    <section id="messages-container">
+      <article class="messages-layout">
+        <div class="messages-header">
           <div><span id="playerName"></span> - level <span id="playerLevel"></span></div>
           <div><span id="playerGold"></span> gold</div>
         </div>
       
-      <div class="tweets-message">
-        <div id="currentMessage" class="tweets-message"></div>
+      <div class="messages-message">
+        <div id="currentMessage" class="messages-message"></div>
         <div class="message-list" id="logMessage"></div>
       </div>
 
-      <footer class="tweets-footer">
+      <footer class="messages-footer">
       <div>Health: (<span id="playerHealth"></span>/<span id="playerHealthMax"></span>)</div>
       <div>Coordinates: (X:<span id="xcoord"></span>), (Y:<span id="ycoord"></span>) </div>
       </footer>
       </article>
     </section>
-    <!-- END: section for showing tweets -->
+    <!-- END: GAME MESSAGES -->
 
   </div>
   <!-- END: MAIN SECTION -->
@@ -95,8 +94,4 @@
   </footer>
 
 </body>
-
-
-
-<!-- SCRIPTS (additional) -->
 </html>
