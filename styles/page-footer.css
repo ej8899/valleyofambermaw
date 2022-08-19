@@ -10,9 +10,11 @@ CSS for page footer
   flex-direction: column-reverse;
   font-size: 1.5rem;
   align-items: center;
+  color: #2C2E25;
 }
 
 .page-footer-blocks {
+  color: #2C2E25;
   margin: 1em;
 }
 
@@ -21,6 +23,7 @@ CSS for page footer
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background-color: rgb(0, 128, 128);
+    color: #2C2E25;
+    background-color: #50543D;
   }
 }

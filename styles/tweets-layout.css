@@ -26,16 +26,16 @@ CSS for tweets-container
   display:flex;
   flex-direction: column;
   width: 100%;
-  background-color:#e7cda2;
+  background-color:#A3A184;
   font-family: sans-serif;
   border-style: groove;
   align-items: center;
   border-radius: 5px;
-  border: 2px solid teal;
+  border: 2px solid #50543D;
   padding: 20px;
 }
 .tweets-layout:hover {
-  box-shadow: 5px 5px rgba(0, 128, 128, 0.511);
+  box-shadow: 5px 5px #635D40;
 }
 
 .tweets-message {
@@ -47,6 +47,19 @@ CSS for tweets-container
   padding-bottom: 20px;
   text-align: left;
   overflow: auto;
+}
+.tweets-message::-webkit-scrollbar {
+  width: 12px;
+}
+
+.tweets-message::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+  border-radius: 10px;
+}
+
+.tweets-message::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
 
 .message-list {
