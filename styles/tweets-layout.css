@@ -5,9 +5,9 @@ CSS for tweets-container
 */
 
 #messages-container {
-  display:flex;
+  display: flex;
+  justify-content: space-between;
   width: 90%;
-  margin-top: 140px;
   font-family: sans-serif;
   flex-direction: column;
   align-items: center;
@@ -30,8 +30,8 @@ CSS for tweets-container
   font-family: sans-serif;
   border-style: groove;
   align-items: center;
-  border-radius: 5px;
-  border: 5px solid #50543D;
+  border-radius: 60px 5px;
+  border: 3px solid #50543D;
   padding: 20px;
 }
 

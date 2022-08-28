@@ -18,19 +18,18 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 100vh;
+  height: 100vh;
 
+  align-items: center;
   color: #545149;
   background-color: #2C2E25;
   font-size: 24px;
   font-family: 'Source Sans Pro', sans-serif;
-  height: 100vh;
-  align-items: center;
 }
 
 
 .container {
-  margin-top: 120px;
+  padding-top: 140px;
   display:flex;
   flex-direction: row;
   justify-content: space-evenly;
