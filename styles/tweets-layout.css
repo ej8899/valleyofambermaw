@@ -31,11 +31,8 @@ CSS for tweets-container
   border-style: groove;
   align-items: center;
   border-radius: 5px;
-  border: 2px solid #50543D;
+  border: 5px solid #50543D;
   padding: 20px;
-}
-.messages-layout:hover {
-  box-shadow: 5px 5px #635D40;
 }
 
 .messages-message {
