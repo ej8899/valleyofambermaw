@@ -108,8 +108,20 @@ const chanceEncounter = () => {
 // where theMonster is monster name from monster database (future)
 //
 const doBattle = (theMonster) => {
-  //
+  if (theMonster === "air") {
+    currentMessage = "You swing in vain at the empty air ahead and do no damage to it.";
+  }
+  return;
 };
+
+//
+// searchHere(); 
+//
+const searchHere = () => {
+  currentMessage = "You search here and find nothing.";
+  return;
+};
+
 
 //
 // check for map collision with a permanent object - town, mountain, river, etc.
@@ -221,7 +233,6 @@ const logKey = function(e) {
   
   if (`${e.code}` === "KeyE") {
     if (activeBattle === false) {
-      currentMessage = "You swing in vain at the empty air ahead";
       doBattle("air");
     } else {
       // TODO - call function to 'attack' - get return of any damage done
@@ -236,7 +247,7 @@ const logKey = function(e) {
   }
 
   if (`${e.code}` === "KeyC") {
-    currentMessage = "You search here and find nothing.";
+    searchHere();
   }
   updateStats();
   

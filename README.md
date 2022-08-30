@@ -9,6 +9,8 @@ https://www.dndbeyond.com/monsters?filter-cr-max=5&filter-cr-min=1&filter-enviro
 
 TODO:
   - random endless exploration
+  - moved fixed map items into separate included JS file
+  - create separate items list into separate included JS file
   - add fontawesome for any icons we might want
   - random monsters - need monster names & details - objects? to allow for monster name, strengths, weaknesses, treasure carrried etc?
   - random npc interactions - need npc names & details - objects for npc name, & details
