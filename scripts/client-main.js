@@ -4,6 +4,15 @@
 //
 
 
+/*
+TODO:
+
+- if we break updateStatus() into an updateMessage() as well, we should be able to avoid the fight & win, then all of a sudden
+  see the rotting corpse here too.
+- we could save player object into localStorage - have a manual save button somewhere
+
+*/
+
 
 //
 //	CONTRIBUTORS: add new files/modules as needed!
@@ -15,7 +24,7 @@
 let currentMessage = '';
 let activeBattle = false;
 let updateImage = './images/people-heroes.png';
-let updateName = '.', currentMonster = '';
+let updateName = '_', currentMonster = '';
 
 //
 // establish player data
@@ -26,6 +35,7 @@ const playerData = {
   level: 1,							// 	current level player is at
   health: 100,					//	current health as 0 - 100
   healthMax: 100,       //  max health for character
+  experience: 0,        //  total experience points to date
   gold: 0,              //  gold pieces
   monsterKills: 0,			// 	total monster kills to date
   currentX: 0,					// 	current X coordinate in map
@@ -36,23 +46,27 @@ const playerData = {
 const fixedMapItems = [
   { x: 0, y: 0,
     item: "your home",
+    description: "mountains exist to the west, and a large, icy cold lake to the south.",
     image: "./images/people-heroes.png",
     monster: "no",
   },
   { x: 100, y: 100,
     item: "the town of Embersmaw",
+    description: "",
     image: "./images/people-heroes.png",
     monster: "no",
   },
   {
     x: 3, y: 3,
     item: "a hidden stash",
+    description: "",
     image: "./images/people-heroes.png",
     monster: "no",
   },
   {
     x: 5, y: 5,
     item: "Darkling",
+    description: "",
     image: "./images/monster-darkling.jpg",
     monster: "yes",
   }
@@ -72,6 +86,13 @@ const monstersDatabase = {
 //
 const randomNumber = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
+//
+//
+//
+const updateFixedMapItem = (item,itemName) => {
+  fixedMapItems[item].monster = "no";
+  fixedMapItems[item].item = itemName;
+};
 
 //
 //  randomize for a chance encounter of a non-static item (monster/npc/etc)
@@ -127,7 +148,7 @@ const updateStats = (clearMessages) => {
   $('#playerLevel').text(playerData.level);
   
   // update message LOG
-  $('#logMessage').append('- ' + currentMessage + '<br>');
+  $('#logMessage').append(currentMessage + '<br>');
 
   // update player status bar
   $('#xcoord').text(playerData.currentX);
@@ -152,9 +173,9 @@ const movePlayer = (direction) => {
   // trying to run from battle
   if (activeBattle) {
     if (randomNumber(1,20) < 10) {          // RUN THE ODDS OF FLEEING BATTLE
-      currentMessage = "running failed, try attacking (E)";
+      currentMessage = "Running failed, try attacking (E)!";
     } else {
-      currentMessage = `you ran away to the ${direction}`;
+      currentMessage = `You ran away to the ${direction}.`;
       activeBattle = false;
     }
   }
@@ -200,16 +221,16 @@ const logKey = function(e) {
   
   if (`${e.code}` === "KeyE") {
     if (activeBattle === false) {
-      currentMessage = "you swing in vain at the empty air ahead";
+      currentMessage = "You swing in vain at the empty air ahead";
+      doBattle("air");
     } else {
       // TODO - call function to 'attack' - get return of any damage done
-      currentMessage = `You take a swing at ${currentMonster},<BR>Doing 43 damage!<BR>The ${currentMonster} is dead!`;
+      currentMessage = `You take a swing at ${currentMonster}, doing 43 damage!<BR>The ${currentMonster} is dead!`;
       updateStats();
       let goldfound = randomNumber(1,5);
       currentMessage = `You found ${goldfound} gold pieces.`;
       playerData.gold += goldfound;
-      fixedMapItems[3].monster = "no";
-      fixedMapItems[3].item = "rotting corpse";
+      updateFixedMapItem(3,"a rotting corpse");
       activeBattle = false;
     }
   }
@@ -221,7 +242,7 @@ const logKey = function(e) {
   
   // check for encounters along the way - note priorities here!
   if (fixedEncounter() === false) {
-    updateName = '.';
+    updateName = '_';
     updateImage = './images/people-heroes.png';
     chanceEncounter();                                // only if NO fixed encounter, then we can try for chanceEncounter
   }
