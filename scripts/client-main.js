@@ -81,18 +81,28 @@ const monstersDatabase = {
   },
 };
 
+const itemsDatabase = {
+  grave: {
+    image: "./images/grave.png",
+    hasTreasure: false,
+  },
+
+};
+
 
 //
-//
+//  thenumber = randomNumber(min, max);
+//  select a random number between min and max
 //
 const randomNumber = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 //
 //
 //
-const updateFixedMapItem = (item,itemName) => {
+const updateFixedMapItem = (item,itemName,newImage) => {
   fixedMapItems[item].monster = "no";
   fixedMapItems[item].item = itemName;
+  fixedMapItems[item].image = newImage;
 };
 
 //
@@ -105,18 +115,70 @@ const chanceEncounter = () => {
 
 
 //
-// doBattle(theMonster); 
+//  crazyAction();
+//  called if player is doing something crazy - they might lose XP if "spotted".
+//
+const crazyAction = () => {
+  let xpLost = randomNumber(1,20);
+  if (xpLost < 5) {
+    currentMessage += "You were spotted behaving like a crazy person.<BR>";
+    currentMessage += `You lose ${xpLost} experience points.`;
+    playerData.experience -= xpLost * playerData.level;
+  }
+};
+
+
+//
+// doBattle(theMonster);
 // where theMonster is monster name from monster database (future)
 //
 const doBattle = (theMonster) => {
   if (theMonster === "air") {
-    currentMessage = "You swing in vain at the empty air ahead and do no damage to it.";
+    currentMessage = "You swing in vain at the empty air ahead and do no damage to it.<BR>";
+    crazyAction();
+    return;
   }
+
+  // need randomizer for who attacks first - eventually modify based on player luck
+
+  // player attacks monster
+  let attackDamage = playerData.level * randomNumber(1,20);
+  let attackSuccess = randomNumber(1,20);
+  if (attackSuccess > 9) {
+    currentMessage = `You take a swing at ${theMonster}, doing ${attackDamage} damage!<BR>`;
+    monstersDatabase[theMonster].healthNow -= attackDamage;
+  } else {
+    currentMessage = `You swing at ${theMonster} but miss!`;
+  }
+
+  // monster attacks player
+  attackSuccess = randomNumber(1,20);
+  attackDamage = randomNumber(1,10);
+  if(attackSuccess > 9) {
+    currentMessage = `${theMonster} slashes you, doing ${attackDamage} damage!<BR>`;
+    playerData.health -= attackDamage;
+  } else {
+    currentMessage = `${theMonster} swings at you and misses!`;
+  }
+
+  if (monstersDatabase[theMonster].healthNow < 1) {
+    currentMessage += `The ${theMonster} is dead!`;
+    let goldfound = randomNumber(1,5);
+    currentMessage = `You found ${goldfound} gold pieces.`;
+    playerData.gold += goldfound;
+    updateFixedMapItem(3,"a grave","./images/grave.png");
+    activeBattle = false;
+  }
+
+  // on success - add to player experience
+  // on success - any dropped items? do we always pickup, or prompt to allow player to select what they want?
+
   return;
 };
 
+
 //
-// searchHere(); 
+// searchHere();
 //
 const searchHere = () => {
   currentMessage = "You search here and find nothing.";
@@ -237,13 +299,7 @@ const logKey = function(e) {
       doBattle("air");
     } else {
       // TODO - call function to 'attack' - get return of any damage done
-      currentMessage = `You take a swing at ${currentMonster}, doing 43 damage!<BR>The ${currentMonster} is dead!`;
-      updateStats();
-      let goldfound = randomNumber(1,5);
-      currentMessage = `You found ${goldfound} gold pieces.`;
-      playerData.gold += goldfound;
-      updateFixedMapItem(3,"a rotting corpse");
-      activeBattle = false;
+      doBattle('darkling');
     }
   }
 
