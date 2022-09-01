@@ -35,6 +35,7 @@ const playerData = {
   level: 1,							// 	current level player is at
   health: 100,					//	current health as 0 - 100
   healthMax: 100,       //  max health for character
+  healthState: 1,       //  use 1 for normal state, 2 for sick, 3 for poisoned, etc? normal to allow for auto heal
   experience: 0,        //  total experience points to date
   gold: 0,              //  gold pieces
   monsterKills: 0,			// 	total monster kills to date
@@ -133,6 +134,7 @@ const crazyAction = () => {
 // where theMonster is monster name from monster database (future)
 //
 const doBattle = (theMonster) => {
+  currentMessage = "";
   if (theMonster === "air") {
     currentMessage = "You swing in vain at the empty air ahead and do no damage to it.<BR>";
     crazyAction();
@@ -145,29 +147,31 @@ const doBattle = (theMonster) => {
   let attackDamage = playerData.level * randomNumber(1,20);
   let attackSuccess = randomNumber(1,20);
   if (attackSuccess > 9) {
-    currentMessage = `You take a swing at ${theMonster}, doing ${attackDamage} damage!<BR>`;
+    currentMessage += `You take a swing at ${theMonster}, doing ${attackDamage} damage!<BR>`;
     monstersDatabase[theMonster].healthNow -= attackDamage;
   } else {
-    currentMessage = `You swing at ${theMonster} but miss!`;
+    currentMessage += `You swing at ${theMonster} but miss!`;
   }
 
-  // monster attacks player
-  attackSuccess = randomNumber(1,20);
-  attackDamage = randomNumber(1,10);
-  if(attackSuccess > 9) {
-    currentMessage = `${theMonster} slashes you, doing ${attackDamage} damage!<BR>`;
-    playerData.health -= attackDamage;
-  } else {
-    currentMessage = `${theMonster} swings at you and misses!`;
-  }
 
+  // monster is dead
   if (monstersDatabase[theMonster].healthNow < 1) {
     currentMessage += `The ${theMonster} is dead!`;
     let goldfound = randomNumber(1,5);
-    currentMessage = `You found ${goldfound} gold pieces.`;
+    currentMessage += `You found ${goldfound} gold pieces.`;
     playerData.gold += goldfound;
     updateFixedMapItem(3,"a grave","./images/grave.png");
     activeBattle = false;
+  } else {
+  // monster attacks player
+    attackSuccess = randomNumber(1,20);
+    attackDamage = randomNumber(1,10);
+    if (attackSuccess > 9) {
+      currentMessage += `${theMonster} slashes you, doing ${attackDamage} damage!<BR>`;
+      playerData.health -= attackDamage;
+    } else {
+      currentMessage += `${theMonster} swings at you and misses!`;
+    }
   }
 
   // on success - add to player experience
@@ -318,9 +322,26 @@ const logKey = function(e) {
 
 
 //
+//
+//
+const autoHealPlayer = () => {
+  if (playerData.healthState === 1) {             // player is healthy, let them auto heal
+    if (playerData.health < playerData.healthMax) {
+      playerData.health ++;
+    }
+  } else if (playerData.healthState === 3) {      // player is poisoned, reduce health
+    playerData.health --;
+  }
+};
+
+
+//
 // program START (when DOM is rendered)
 //
 window.onload = function() {
   updateStats();
   document.addEventListener('keydown', logKey);
+
+  // set interval timer so player always gains health unless sick
+  setInterval(autoHealPlayer, 5000);  // TODO - this timing would adjust based on player stats for regen, or perhaps a potion
 };
