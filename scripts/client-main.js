@@ -251,7 +251,7 @@ const updateStats = (clearMessages) => {
 const movePlayer = (direction) => {
   // trying to run from battle
   if (activeBattle) {
-    if (randomNumber(1,20) < 10) {          // RUN THE ODDS OF FLEEING BATTLE
+    if (randomNumber(1,20) < 12) {          // RUN THE ODDS OF FLEEING BATTLE // TODO - update based on player skills etc
       currentMessage = "Running failed, try attacking (E)!";
     } else {
       currentMessage = `You ran away to the ${direction}.`;
@@ -322,9 +322,22 @@ const logKey = function(e) {
 
 
 //
+//  autoHealPlayer(state);
+//  state = init - to setup new auto healing timer, clear - to clear prior set state
+//  no return values
 //
-//
-const autoHealPlayer = () => {
+const autoHealPlayer = (state) => {
+  const baseTime = 5000;    // TODO - this timing would adjust based on player stats for regen, or perhaps a potion
+  let autoHealing = '';
+  if (state === 'init') {
+    autoHealing = setInterval(autoHealPlayer, baseTime);
+    return;
+  }
+  if (state === 'clear') {
+    clearInterval(autoHealing);
+    return;
+  }
+
   if (playerData.healthState === 1) {             // player is healthy, let them auto heal
     if (playerData.health < playerData.healthMax) {
       playerData.health ++;
@@ -343,5 +356,5 @@ window.onload = function() {
   document.addEventListener('keydown', logKey);
 
   // set interval timer so player always gains health unless sick
-  setInterval(autoHealPlayer, 5000);  // TODO - this timing would adjust based on player stats for regen, or perhaps a potion
+  autoHealPlayer('init');
 };

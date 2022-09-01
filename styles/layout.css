@@ -13,6 +13,9 @@ html {
 /*
  * Global layout components
  */
+:root {
+  color-scheme: dark;
+}
 
 body {
   display: flex;
